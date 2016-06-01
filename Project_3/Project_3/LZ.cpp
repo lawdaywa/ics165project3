@@ -1,6 +1,6 @@
 #include "LZ.h"
-//#include <string>
-  
+#include <string>
+
 //imput constants
 const int NMAX = 14;
 const int NMIN = 9;
@@ -15,50 +15,85 @@ bool isbetween(int x, int min, int max)
 	return(min <= x && x <= max);
 }
 
-//constructor
 LZ::LZ(string filename){
 	setWholetext(filename);
-	cout << "Whole Text: " << wholetext << endl;
+	//cout << "Whole Text: " << wholetext << endl;
 }
 
 
-void LZ::startEncode(int N, int L, int S ){
-	cout << "Encoding:  N:" << N << "  L:" << L << "  S:" << S << endl;
-	//assert that the input values are within the specified bounds
-	assert(isbetween(N, NMIN, NMAX));
-	assert(isbetween(L, LMIN, LMAX));
-	assert(isbetween(S, SMIN, SMAX));
-	int windowSize		= pow(2, N);
-	int lookaheadSize	= pow(2, L) - 1;
-	int longestLiteral	= pow(2, S) - 1;
-	cout << "WS: " << windowSize << "  LS:" << lookaheadSize << "  LL:" << longestLiteral << endl;
+void LZ::startStEncode(){
+	window = "";
+	cout << "Start Encoding!" << endl;
+	for (int i = 0; i < wholetext.length(); i++){
+		
+		int lenMatch = 1;
+		string slidingChars = wholetext.substr(i,lenMatch);
+		if (window.find(slidingChars) != string::npos){ //If 1 char match is found
+			//cout << "Match Found" << endl;
+			for (int j = i+1; j < wholetext.length(); j++){	
+				lenMatch++;
+				slidingChars = wholetext.substr(i, lenMatch);
+				if ((window+wholetext.substr(i,slidingChars.length()-1)).find(slidingChars) != string::npos){
+					continue;
+				}
+				else{
+					slidingChars = wholetext.substr(i, lenMatch - 1);
+
+					break;
+				}
+			}
+		}
+		if (slidingChars.length() > 1){
+			//cout << "Combo:	"<<slidingChars << endl;
+			i += (slidingChars.length()-1);
+		}
+		//else{
+		//	cout << slidingChars << endl;
+		//}
+		
+		
+		window = wholetext.substr(0,i+1);
+	}
+}
+
+void LZ::startEncode(){
 	//Starts looping over the whole text
 	// Initialize slide Beginning position and start sliding
-	
+	cout << "Printing:  " << endl;
 	int lenMatch = 1;
 	for (int i = 0; i < wholetext.length(); i++){
 		int startIndex = i;
-		//cout << "SI:" << startIndex << endl;
 		string slidingChars = wholetext.substr(startIndex,lenMatch);
 		//cout << "Here1: "<<slidingChars << endl;
 		bool match = false;
 		while (dict.count(slidingChars) == 1){			//If match is found
-			lenMatch++;									//Increase counter to go one more
+			if (lenMatch + startIndex < wholetext.length()){
+				//cout << "Here" << endl;
+				lenMatch++;									//Increase counter to go one more
+			}
+			else{
+				break;
+			}
+
 			slidingChars = wholetext.substr(startIndex, lenMatch);
-			cout << "Sliding Chars:  " << slidingChars << endl;
+			//cout << "Sliding CHars:  " << slidingChars << endl;
 			match = true;
+			//cout << "match" << endl;
 		}
 		if (match){
 			slidingChars = wholetext.substr(startIndex, lenMatch - 1);
+			match = false;
 		}
+		
 		if (slidingChars.length() > 1){ //If more than 1 match is found
 			cout << "("<<slidingChars.length()<<", "<<window.length()-dict[slidingChars]<<") "<<endl;
-			i += slidingChars.length()-1;
+			i += (slidingChars.length());
 		}
 		else{
-			cout <<"i: "<<i<<" SC: "<< slidingChars << endl;
+			cout << slidingChars << endl;
 		}
-
+		
+		cout << "i: " << i<< endl;
 		//cout << "Printing: "<<slidingChars;
 		//cout << "Here 3:  " << slidingChars << endl;
 		lenMatch = 1;
@@ -89,10 +124,12 @@ void LZ::generatePermutations(string updatedString){
 			start = 0;
 			totalLen--;
 		}
+
 	}
 	window = new_window;
-}
 
+}
+/*
 void LZ::printMap(){
 	//Printing the map
 	cout << "\nPrinting the Map" << endl;
@@ -100,7 +137,7 @@ void LZ::printMap(){
 		iter != dict.end(); ++iter)
 		cout << iter->first << '\t' << iter->second << '\n';
 }
-
+*/
 
 int LZ::calc_num_perms(int n,int m){
 	int total = n*(n + 1) / 2;

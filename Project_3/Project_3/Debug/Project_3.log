@@ -1,0 +1,6 @@
+﻿  LZ.cpp
+d:\165\proj3\project_3\project_3\lz.cpp(31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\165\proj3\project_3\project_3\lz.cpp(32): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\165\proj3\project_3\project_3\lz.cpp(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\165\proj3\project_3\project_3\lz.cpp(39): warning C4018: '<': signed/unsigned mismatch
+  Project_3.vcxproj -> D:\165\Proj3\Project_3\Debug\Project_3.exe

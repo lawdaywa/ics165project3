@@ -1,6 +1,6 @@
 #include "LZ.h"
 //#include <string>
-
+  
 //imput constants
 const int NMAX = 14;
 const int NMIN = 9;

@@ -87,6 +87,10 @@
   <ItemGroup>
     <Text Include="words.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="book1" />
+    <None Include="kennedy.xls" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

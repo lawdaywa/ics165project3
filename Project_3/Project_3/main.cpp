@@ -7,30 +7,17 @@ using namespace std;
 int main()
 {
 	string line;
-	string wholeString = "";
-	string fileName = "words.txt";
-	ifstream myfile(fileName.c_str());
-
-	if (myfile.is_open())
-	{
-		cout << "File Opened" << endl;
-		while (getline(myfile, line))
-		{
-			wholeString.append(line);
-		}
-		myfile.close();
-	}
-	else{
-		cout << "Unable to open file" << endl;
-	}
+	
+	string fileName = "kennedy.xls";
+	
 
 	//Creating the LZ class and passing in the string to be compressed
 	//Implement Parameters
-	LZ encoder(wholeString);
-	encoder.startEncode();
+	LZ encoder(fileName);
+	encoder.myEncode();
 
-	//encoder.generatePermutations("abd");
-	encoder.printMap();
+	
+	
 
 	return 0;
 }

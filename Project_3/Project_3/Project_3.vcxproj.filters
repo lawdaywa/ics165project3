@@ -32,4 +32,12 @@
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="kennedy.xls">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="book1">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

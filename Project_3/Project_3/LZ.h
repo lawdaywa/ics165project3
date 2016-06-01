@@ -21,6 +21,7 @@ class LZ{
 		LZ(string filename);
 		void setWholetext(string text){ wholetext = text; };
 		void startEncode(int N = 11, int L = 4, int S = 3);
+		void LZ::startStEncode();
 		void generatePermutations(string);	//Inserts into the map all the possible combos of matchings, including the new string that was matched
 		void printMap();
 		int calc_num_perms(int,int); //Calculate how many times the for loop in genereatePerm needs to iterate

@@ -56,7 +56,7 @@ void LZ::startStEncode(){
 	}
 }
 
-void LZ::startEncode(){
+void LZ::startEncode(int N, int L , int S){
 	//Starts looping over the whole text
 	// Initialize slide Beginning position and start sliding
 	cout << "Printing:  " << endl;
